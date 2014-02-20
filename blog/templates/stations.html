@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+
+{% block content %}
+{% if divy %}
+{% for x in divy['stationBeanList']%}
+{{x['stationName']}}</br>
+{% endfor %}
+{% else %}
+No stations at this time
+{% endif %}
+{% endblock  %}
