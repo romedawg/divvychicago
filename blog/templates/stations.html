@@ -3,23 +3,16 @@
 {% block head %}
 <meta name="viewpoint" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
-<style>
-    html, body, #map-canvas{
-        height:100%;
-        margin:0px;
-        padding:0px;
-    }
-</style>
-<script src="">
 {% endblock %}
 
 {% block content %}
-<div id="map-canvas">
-</div>
 {% if divy %}
+<table id="table">
+    <tr><th>Stations</th><th>bikes</th></tr>
 {% for x in divy['stationBeanList']%}
-{{x['stationName']}}&nbsp{{x['availableBikes']}}</br>
+<tr><td>{{x['stationName']}}</td><td>{{x['availableBikes']}}</td></tr>
 {% endfor %}
+</table>
 {% else %}
 No stations at this time
 {% endif %}
