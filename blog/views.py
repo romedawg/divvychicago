@@ -1,8 +1,10 @@
-from blog import app
-from flask import render_template
-from blog.forms import Users
+from blog import app, db
+from flask import render_template, request
+from blog.forms import Users_Form
+from blog.models import Users
 import json
 import urllib2
+import hashlib
 
 
 @app.route('/')
@@ -18,5 +20,12 @@ def stations():
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
-    form = Users()
-    return render_template('signup.html', form=form)
+    Signup_Form = Users_Form()
+    if request.method == 'POST':
+        username = request.form['username']
+        password = hashlib.sha1(request.form['password'])
+        add_user = Users(username, password)
+        db.session.add(add_user)
+        db.session.commit()
+        return render_template('/success.html')
+    return render_template('signup.html', form=Signup_Form)
