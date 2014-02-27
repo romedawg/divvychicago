@@ -8,6 +8,11 @@
     {{form.password.label}}{{form.password}}</br>
     {{form.submit}}
 </form>
+{% if flash %}
+{% for message in flash %}
+{{message}}
+{% endfor %}
+{% endif %}
 {% endblock %}
 
 
