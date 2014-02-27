@@ -1,4 +1,6 @@
-from blog import db
+from flask.ext.sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class Users(db.Model):
     __tablename__ = "users"
@@ -31,3 +33,17 @@ class Profile(db.Model):
         return "<Profile(email='%s')>" % self.email
 
     
+class Courses(db.Model):
+    __tablename__ = "courses"
+
+    id = db.Column(db.Integer, primary_key=True)
+    coursecode = db.Column(db.String(5))
+    couretitle = db.Column(db.String(120))
+    classnum = db.Column(db.String(120))
+    status = db.Column(db.String(120))
+    duration = db.Column(db.Integer)
+    category = db.Column(db.Text)
+    subcategory = db.Column(db.Text)
+
+    def __repr_(self):
+        return "<course %s>" % self.coursecode

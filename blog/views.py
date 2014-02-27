@@ -33,7 +33,8 @@ def signup():
             add_user = Users(username, password)
             db.session.add(add_user)
             db.session.commit()
-            return redirect(url_for('home'))
+            session['username'] = username
+            return redirect(url_for('profile'))
     flash.append('enter a username/password')
     return render_template('signup.html', form=form, flash=flash)
 
@@ -43,7 +44,8 @@ def signup():
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
     flash = []
+    form = Users_Form()
     if 'username' in session:
         return render_template('profile.html')
     flash.append('please login')
-    return redirect(url_for('signup', flash=flash))
+    return render_template('signup.html', flash=flash, form=form)
