@@ -43,7 +43,7 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = Users_Form()
-    if form.validate_on_submit():
+    if form.validate():
         login_user(user)
         flash('logged in succesfully')
         return redirect(url_for('index'))
