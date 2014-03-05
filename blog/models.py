@@ -5,7 +5,7 @@ db = SQLAlchemy()
 class Users(db.Model):
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120))
     password = db.Column(db.String(120))
     profile = db.relationship('Profile', backref="users", uselist=False)
@@ -20,13 +20,14 @@ class Users(db.Model):
     def __str__(self):
         return self.username
 
+
 class Profile(db.Model):
     __tablename__ = "profile"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
     email = db.Column(db.String(100))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.userid'))
 
 
     def __repr__(self):
