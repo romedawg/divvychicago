@@ -2,6 +2,8 @@ from blog import app, db, login_manager
 from flask import render_template, request, session, redirect, url_for, flash
 from blog.forms import Users_Form
 from blog.models import Users
+from flask.ext.login import login_required
+from blog.utils import get_user
 
 import json
 import urllib2
@@ -44,17 +46,18 @@ def signup():
 def login():
     form = Users_Form()
     if form.validate():
+        user = get_user(form.data['username'])
         login_user(user)
         flash('logged in succesfully')
-        return redirect(url_for('index'))
+        return redirect(url_for('profile'))
     return render_template('login.html', form=form)
 
 @app.route('/profile', methods=['POST', 'GET'])
+@login_required
 def profile():
-    flash = []
-    form = Users_Form()
-    if 'username' in session:
-        return render_template('profile.html')
-    flash.append('please login')
-    return render_template('signup.html', flash=flash, form=form)
+    #form = Users_Form()
+    #if 'username' in session:
+    return render_template('profile.html')
+    #flash.append('please login')
+    #return render_template('signup.html', flash=flash, form=form)
 

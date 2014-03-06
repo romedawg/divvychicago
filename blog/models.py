@@ -8,11 +8,7 @@ class Users(db.Model):
     userid = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120))
     password = db.Column(db.String(120))
-    profile = db.relationship('Profile', backref="users", uselist=False)
-
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
+    profile = db.relationship('Profile', uselist=False, backref='userid')
 
     def __repr__(self):
         return '<User %s>' % (self.username)
